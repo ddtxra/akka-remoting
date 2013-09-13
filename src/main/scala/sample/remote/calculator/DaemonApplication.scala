@@ -11,10 +11,9 @@ import akka.kernel.Bootable
 import akka.actor.{ Props, Actor, ActorSystem }
 import com.typesafe.config.ConfigFactory
 
-
 class DaemonApplication extends Bootable {
   //#setup
-  val system = ActorSystem("DaemonApplication",  ConfigFactory.load.getConfig("daemon"))
+  val system = ActorSystem("DaemonApplication", ConfigFactory.load.getConfig("daemon"))
   //#setup
 
   def startup() {
