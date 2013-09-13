@@ -12,9 +12,9 @@ import akka.actor.{ Props, Actor, ActorSystem }
 import com.typesafe.config.ConfigFactory
 
 
-class WaitingApplication extends Bootable {
+class DaemonApplication extends Bootable {
   //#setup
-  val system = ActorSystem("WaitingApplication",  ConfigFactory.load.getConfig("calculator"))
+  val system = ActorSystem("DaemonApplication",  ConfigFactory.load.getConfig("calculator"))
   //#setup
 
   def startup() {
@@ -25,9 +25,9 @@ class WaitingApplication extends Bootable {
   }
 }
 
-object WaitApp {
+object DaemonApp {
   def main(args: Array[String]) {
-    new WaitingApplication
-    println("Started Waiting Application - waiting for actor creation.... ")
+    new DaemonApplication
+    println("Started Daemon Application - waiting for actor creation.... ")
   }
 }
