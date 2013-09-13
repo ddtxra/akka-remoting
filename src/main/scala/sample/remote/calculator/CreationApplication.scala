@@ -14,15 +14,12 @@ import akka.actor._
 
 class CreationApplication extends Bootable {
   //#setup
-  val system =
-    ActorSystem("RemoteCreation", ConfigFactory.load.getConfig("remotecreation"))
-  val remoteActor = system.actorOf(Props[AdvancedCalculatorActor],
-    name = "advancedCalculator")
-  val localActor = system.actorOf(Props(classOf[CreationActor], remoteActor),
-    name = "creationActor")
+  val system = ActorSystem("RemoteCreation", ConfigFactory.load.getConfig("remotecreation"))
+  val remoteActor = system.actorOf(Props[AdvancedCalculatorActor], name = "advancedCalculator")
+  val creationActor = system.actorOf(Props(classOf[CreationActor], remoteActor), name = "creationActor")
 
   def doSomething(op: MathOp): Unit =
-    localActor ! op
+    creationActor ! op
   //#setup
 
   def startup() {
