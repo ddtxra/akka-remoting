@@ -14,7 +14,7 @@ import com.typesafe.config.ConfigFactory
 
 class DaemonApplication extends Bootable {
   //#setup
-  val system = ActorSystem("DaemonApplication",  ConfigFactory.load.getConfig("calculator"))
+  val system = ActorSystem("DaemonApplication",  ConfigFactory.load.getConfig("daemon"))
   //#setup
 
   def startup() {
