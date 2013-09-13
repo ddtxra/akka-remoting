@@ -23,7 +23,7 @@ class LookupApplication extends Bootable {
   val system = ActorSystem("LookupApplication", ConfigFactory.load.getConfig("remotelookup"))
 
   //lookup an existing actor with the following name and ask him to do some work
-  val remotePath = "akka.tcp://CalculatorApplication@crick:2552/user/simpleCalculator"
+  val remotePath = "akka.tcp://CalculatorApplication@10.2.0.104:2552/user/simpleCalculator"
   val proxyActor = system.actorOf(Props(classOf[LookupActor], remotePath), "lookupActor")
 
   def doSomething(op: MathOp): Unit =
