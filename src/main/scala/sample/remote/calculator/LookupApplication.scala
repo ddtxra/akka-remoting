@@ -18,15 +18,16 @@ import akka.actor.ReceiveTimeout
 //#imports
 
 class LookupApplication extends Bootable {
-  //#setup
-  val system =
-    ActorSystem("LookupApplication", ConfigFactory.load.getConfig("remotelookup"))
-  val remotePath =
-    "akka.tcp://CalculatorApplication@127.0.0.1:2552/user/simpleCalculator"
-  val actor = system.actorOf(Props(classOf[LookupActor], remotePath), "lookupActor")
+
+  //#setup (will look at the port to listen 2553 for instance....)
+  val system = ActorSystem("LookupApplication", ConfigFactory.load.getConfig("remotelookup"))
+
+  //lookup an existing actor with the following name and ask him to do some work
+  val remotePath = "akka.tcp://CalculatorApplication@crick:2552/user/simpleCalculator"
+  val proxyActor = system.actorOf(Props(classOf[LookupActor], remotePath), "lookupActor")
 
   def doSomething(op: MathOp): Unit =
-    actor ! op
+    proxyActor ! op
   //#setup
 
   def startup() {
@@ -51,8 +52,8 @@ class LookupActor(path: String) extends Actor {
       context.setReceiveTimeout(Duration.Undefined)
       context.become(active(actor))
     case ActorIdentity(`path`, None) => println(s"Remote actor not availible: $path")
-    case ReceiveTimeout              => sendIdentifyRequest()
-    case _                           => println("Not ready yet")
+    case ReceiveTimeout => sendIdentifyRequest()
+    case _ => println("Not ready yet")
   }
 
   def active(actor: ActorRef): Actor.Receive = {

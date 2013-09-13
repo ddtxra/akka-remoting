@@ -1,4 +1,4 @@
-name := "hpa-subcell"
+name := "akka-remoting"
 
 version := "1.0"
 
