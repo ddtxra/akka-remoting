@@ -27,7 +27,7 @@ class WaitingApplication extends Bootable {
 
 object WaitApp {
   def main(args: Array[String]) {
-    new CalculatorApplication
+    new WaitingApplication
     println("Started Waiting Application - waiting for actor creation.... ")
   }
 }
